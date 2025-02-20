@@ -1,6 +1,6 @@
+use std::fs::File;
 use std::io::Write;
 use std::net::{Shutdown, TcpStream};
-use std::fs::File;
 
 fn main() {
     let mut s = TcpStream::connect(("google.com", 80)).unwrap();
@@ -11,5 +11,5 @@ fn main() {
     let mut page = File::create("google-hello.html").unwrap();
     let sep = "\r\n\r\n";
     let body_start = response.find(sep).unwrap() + sep.len();
-    page.write_all(&response[body_start..].as_bytes()).unwrap();
+    page.write_all(response[body_start..].as_bytes()).unwrap();
 }
