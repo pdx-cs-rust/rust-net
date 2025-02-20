@@ -9,6 +9,7 @@ fn main() {
     s.shutdown(Shutdown::Write).unwrap();
     let response = std::io::read_to_string(s).unwrap();
     let mut page = File::create("google-hello.html").unwrap();
-    let body_start = response.find("\r\n\r\n").unwrap() + 4;
+    let sep = "\r\n\r\n";
+    let body_start = response.find(sep).unwrap() + sep.len();
     page.write_all(&response[body_start..].as_bytes()).unwrap();
 }
